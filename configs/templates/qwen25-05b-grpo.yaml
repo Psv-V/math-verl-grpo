@@ -1,0 +1,52 @@
+# Planning template only. Copy this file to configs/runs/<run-name>.yaml and
+# replace every TBD value after the server audit and pilot. A file containing
+# TBD values must never be used for a formal run.
+
+run:
+  name: TBD
+  git_commit: TBD
+  seed: TBD
+  condition: TBD  # correctness_plus_format or correctness_only
+
+model:
+  repository: Qwen/Qwen2.5-0.5B-Instruct
+  revision: TBD-AUDIT
+  local_path: TBD-SERVER
+
+data:
+  train_file: TBD-SERVER
+  dev_file: TBD-SERVER
+  test_file: null  # never pass the official test split to the trainer
+  dataset_revision: TBD-DATA
+
+prompt:
+  template_version: TBD-AUDIT
+  max_prompt_length: TBD-PILOT
+  max_response_length: TBD-PILOT
+
+reward:
+  correctness_weight: 1.0
+  format_weight: TBD-CONDITION  # 0.1 for format; 0.0 for correctness-only
+
+grpo:
+  total_optimizer_steps: TBD-PILOT
+  rollout_group_size: TBD-PILOT
+  rollout_temperature: TBD-PILOT
+  train_batch_size: TBD-PILOT
+  mini_batch_size: TBD-PILOT
+  micro_batch_size_per_gpu: TBD-PILOT
+  learning_rate: TBD-PILOT
+  kl_coefficient: TBD-PILOT
+
+checkpointing:
+  output_dir: TBD-SERVER
+  save_interval: TBD-PILOT
+  validation_interval: TBD-PILOT
+  resume_from: null
+
+tracking:
+  logger: [console, wandb]
+  wandb_project: math-verl-grpo
+  wandb_run_name: TBD
+  wandb_run_id: null
+

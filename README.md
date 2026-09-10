@@ -14,9 +14,13 @@ Stage 0 is complete: research scope and experiment protocol were preregistered
 before any dependencies, models, or datasets were installed or downloaded.
 Stage 1 has recorded the rental vendor's reported hardware/image metadata and a
 candidate dependency set; live-host validation is still pending. No training
-result is claimed yet.
+result is claimed yet. Stage 2 fixes the minimal experiment naming and tracking
+rules and provides a planning template; final run configurations will be frozen
+only after the server audit and pilot.
 
-The detailed protocol is in [reports/protocol.md](reports/protocol.md).
+The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
+minimal Git/W&B binding rules are in
+[reports/experiment_tracking.md](reports/experiment_tracking.md).
 
 ## Intended experiment
 
