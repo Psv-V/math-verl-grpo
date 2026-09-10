@@ -1,0 +1,13 @@
+# ABI-critical candidate constraints for the isolated Miniconda environment.
+# These are deliberately separate from the platform's preinstalled PyTorch 2.8.
+torch==2.11.0
+torchvision==0.26.0
+torchaudio==2.11.0
+vllm==0.24.0
+transformers==5.9.0
+tensordict==0.10.0
+trl==0.27.0
+
+# The fixed verl source requires Ray >=2.41. The exact resolved Ray patch
+# version will be frozen after the Linux environment passes smoke tests.
+ray>=2.41,<3

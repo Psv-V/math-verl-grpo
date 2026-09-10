@@ -1,0 +1,43 @@
+# Direct Python dependencies for the isolated server environment.
+#
+# Do not invoke this file before installing the CUDA 13.0 PyTorch layer as
+# described in requirements/README.md. The constraint file prevents accidental
+# cross-generation upgrades during subsequent resolution.
+-c ../constraints/server-cu130-torch211.txt
+
+# Inference and framework-facing packages.
+vllm==0.24.0
+transformers==5.9.0
+ray[default]>=2.41,<3
+tensordict==0.10.0
+trl==0.27.0
+
+# verl runtime dependencies used by this project.
+accelerate
+codetiming
+datasets
+dill
+hydra-core==1.3.2
+numpy>=2.0
+pandas
+peft
+pyarrow>=19.0.0
+pybind11
+pylatexenc==2.10
+torchdata
+packaging>=20.0
+tensorboard
+wandb
+fastapi
+uvicorn
+cachetools
+nvtx
+
+# Training-side helpers in the fixed verl FSDP dependency set.
+liger-kernel>=0.8.2
+flash-linear-attention==0.5.2
+cupy-cuda13x==14.0.1
+
+# `flash-attn==2.8.3` is installed as a separate ABI-sensitive layer from the
+# official verl wheelhouse only after the basic CUDA tests pass.
+# verl itself is also installed separately with --no-deps from the fixed commit.

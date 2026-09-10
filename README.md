@@ -10,8 +10,10 @@ minimum completion criteria. The total rented-GPU budget is capped at 72 hours.
 
 ## Current status
 
-Stage 0: research scope and experiment protocol are preregistered before any
-dependencies, models, or datasets are installed or downloaded. No training
+Stage 0 is complete: research scope and experiment protocol were preregistered
+before any dependencies, models, or datasets were installed or downloaded.
+Stage 1 has recorded the rental vendor's reported hardware/image metadata and a
+candidate dependency set; live-host validation is still pending. No training
 result is claimed yet.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md).
