@@ -16,11 +16,13 @@ Stage 1 has recorded the rental vendor's reported hardware/image metadata and a
 candidate dependency set; live-host validation is still pending. No training
 result is claimed yet. Stage 2 fixes the minimal experiment naming and tracking
 rules and provides a planning template; final run configurations will be frozen
-only after the server audit and pilot.
+only after the server audit and pilot. Stage 3 data preparation code is written
+but has not been executed; no dataset has been downloaded locally.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
 minimal Git/W&B binding rules are in
-[reports/experiment_tracking.md](reports/experiment_tracking.md).
+[reports/experiment_tracking.md](reports/experiment_tracking.md). The GSM8K
+split and conversion contract is in [reports/data_card.md](reports/data_card.md).
 
 ## Intended experiment
 
