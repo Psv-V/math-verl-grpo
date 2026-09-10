@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Datasets, models, and training artifacts
+/data/
+/models/
+/checkpoints/
+/outputs/
+/artifacts/
+/wandb/
+/swanlog/
+/ray_results/
+
+# Large ML files
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.parquet
+
+# Local reference checkout: provenance is documented, but upstream code is not
+# part of this project's implementation or Git history.
+/references/verl-official/
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
