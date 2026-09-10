@@ -15,9 +15,10 @@ import hashlib
 import json
 import re
 import unicodedata
-from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
+
+from math_grpo.answer_parser import normalize_number
 
 DATASET_ID = "openai/gsm8k"
 DATASET_CONFIG = "main"
@@ -34,26 +35,6 @@ PROMPT_SUFFIX = (
 _FINAL_ANSWER = re.compile(
     r"####\s*([+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)\s*$"
 )
-
-
-def normalize_number(value: str) -> str:
-    """Return one stable string representation of a decimal number."""
-
-    cleaned = value.replace(",", "").strip()
-    try:
-        number = Decimal(cleaned)
-    except InvalidOperation as error:
-        raise ValueError(f"Invalid numeric answer: {value!r}") from error
-
-    if not number.is_finite():
-        raise ValueError(f"Answer must be finite: {value!r}")
-    if number == 0:
-        return "0"
-
-    normalized = format(number, "f")
-    if "." in normalized:
-        normalized = normalized.rstrip("0").rstrip(".")
-    return normalized
 
 
 def extract_ground_truth(answer: str) -> str:
