@@ -15,7 +15,9 @@ _NAMED_ANSWER = re.compile(
     rf"(?:final\s+answer|answer)\s*(?:is|=|:)\s*\$?\s*({NUMBER_PATTERN})",
     re.IGNORECASE,
 )
-_ANY_NUMBER = re.compile(rf"(?<![\w.])({NUMBER_PATTERN})(?![\w.])")
+_ANY_NUMBER = re.compile(
+    rf"(?<![\w.,])({NUMBER_PATTERN})(?!\w|[.,](?=\d))"
+)
 
 
 @dataclass(frozen=True)
