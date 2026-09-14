@@ -16,10 +16,13 @@ Stage 1 has recorded the rental vendor's reported hardware/image metadata and a
 candidate dependency set; live-host validation is still pending. No training
 result is claimed yet. Stage 2 fixes the minimal experiment naming and tracking
 rules and provides a planning template; final run configurations will be frozen
-only after the server audit and pilot. Stage 3 data preparation code is written
-but has not been executed; no dataset has been downloaded locally. Stage 4
-implements strict and conservative flexible numeric answer parsing; its tests
-are written but have not yet been run.
+only after the server audit and pilot. Stage 3 data preparation has passed a
+temporary local run on the pinned GSM8K revision; its data was deleted after
+validation. Stage 4 strict and conservative flexible answer parsing has passed
+local tests. Stage 5 implements the two preregistered rule-reward conditions.
+A separate reimplementation of GRPO is intentionally omitted; reward and
+advantage sanity checks will use the actual pinned verl code during the server
+smoke test.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
 minimal Git/W&B binding rules are in
@@ -27,6 +30,8 @@ minimal Git/W&B binding rules are in
 split and conversion contract is in [reports/data_card.md](reports/data_card.md).
 The model response format and parsing rules are in
 [reports/answer_contract.md](reports/answer_contract.md).
+The reward formulas and verl entry points are in
+[reports/reward_contract.md](reports/reward_contract.md).
 
 ## Intended experiment
 
