@@ -37,6 +37,10 @@ Shared candidates:
 - reference-model parameter offload: enabled;
 - gradient checkpointing and remove-padding optimization: initially disabled.
 
+The launcher applies its seed to the training-data sampler, actor mini-batch
+loader, actor and reference FSDP engines, and rollout sampler. A seed in the
+run name is therefore an actual verl input, not only a label.
+
 The formal candidate processes 32 prompts and 256 generated trajectories per
 optimizer iteration. Dynamic token batching is used instead of a fixed
 micro-batch count. If the first pilot has ample memory, token limits or prompt
@@ -85,4 +89,3 @@ bash scripts/run_grpo.sh formal correctness 42
 The launcher refuses `test.parquet` as validation data, rejects unregistered
 formal seeds, requires a clean Git worktree for formal runs, starts with resume
 disabled, and avoids overwriting an existing run directory by default.
-

@@ -37,6 +37,8 @@ The initial candidate therefore uses:
 - vLLM 0.24.0
 - Transformers 5.9.0
 - TensorDict 0.10.0
+- TransferQueue commit `434f8c476b4be24bc087e6e95070e64efcc739f9`
+- mbridge commit `641a5a01de71080b2200d10e369090e40c9a351c`
 
 This mirrors the dependency generation declared by the fixed reference commit.
 It remains a candidate until a real import, CUDA-kernel, vLLM generation,
@@ -121,5 +123,10 @@ inspected. The safe logical order is:
 9. Test Ray workers and the verl entry point.
 10. Freeze the complete resolved environment and record hashes.
 
-No W&B API key belongs in any requirements file, shell script, Git commit, or
+The fixed dependency set includes `torchcodec`; verify that the server image
+provides FFmpeg shared libraries before the full import audit. This text-only
+experiment does not decode media, but matching the fixed verl core dependency
+set avoids import-time surprises.
+
+No SwanLab API key belongs in any requirements file, shell script, Git commit, or
 captured environment report.

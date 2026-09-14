@@ -55,7 +55,7 @@ fallback generation only; it must not be mixed into the primary environment.
 - `nvcc`, GCC, glibc, cuDNN, NCCL, and shared-memory availability.
 - Actual system/data disk mount points, persistence policy, and free space.
 - Outbound access to the chosen model source, Python package index, GitHub, and
-  W&B.
+  SwanLab.
 - Whether Docker is available and whether the instance permits host IPC or a
   sufficiently large shared-memory allocation.
 

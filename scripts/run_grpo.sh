@@ -21,8 +21,14 @@ mode=$1
 condition=$2
 seed=$3
 
+if [[ ! ${seed} =~ ^[0-9]+$ ]]; then
+    echo "Seed must be a non-negative integer." >&2
+    exit 2
+fi
+
 project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 reward_path="${project_root}/src/math_grpo/rewards.py"
+git_commit=$(git -C "${project_root}" rev-parse HEAD)
 
 required_variables=(
     MATH_GRPO_MODEL_PATH
@@ -93,7 +99,7 @@ case ${mode} in
         save_freq=10
         test_freq=5
         val_before_train=True
-        logger='["console","wandb"]'
+        logger='["console","swanlab"]'
         ;;
     formal)
         train_batch_size=32
@@ -105,7 +111,7 @@ case ${mode} in
         save_freq=20
         test_freq=10
         val_before_train=True
-        logger='["console","wandb"]'
+        logger='["console","swanlab"]'
         if [[ ${condition} == format && ! ${seed} =~ ^(17|42|2026)$ ]]; then
             echo "Formal format seed must be 17, 42, or 2026." >&2
             exit 2
@@ -138,6 +144,11 @@ if [[ -e ${run_dir} && ${MATH_GRPO_ALLOW_EXISTING_RUN_DIR:-0} != 1 ]]; then
 fi
 mkdir -p "${run_dir}"
 
+# Keep SwanLab's local records on the data disk. The caller may override this
+# path, for example when using a persistent shared logging directory.
+export SWANLAB_LOG_DIR="${SWANLAB_LOG_DIR:-${MATH_GRPO_OUTPUT_ROOT}/swanlog}"
+mkdir -p "${SWANLAB_LOG_DIR}"
+
 export PYTHONPATH="${project_root}/src${PYTHONPATH:+:${PYTHONPATH}}"
 
 echo "Launching ${run_name}"
@@ -147,11 +158,15 @@ echo "Trajectories per step: $((train_batch_size * rollout_n))"
 echo "Candidate parameters remain subject to RTX 5090 pilot validation."
 
 python -m verl.trainer.main_ppo \
+    +project_git_commit=${git_commit} \
+    +project_condition=${condition} \
+    +project_seed=${seed} \
     algorithm.adv_estimator=grpo \
     algorithm.norm_adv_by_std_in_grpo=True \
     algorithm.use_kl_in_reward=False \
     "data.train_files=${MATH_GRPO_TRAIN_FILE}" \
     "data.val_files=${MATH_GRPO_DEV_FILE}" \
+    data.seed=${seed} \
     data.train_batch_size=${train_batch_size} \
     data.max_prompt_length=512 \
     data.max_response_length=512 \
@@ -161,6 +176,7 @@ python -m verl.trainer.main_ppo \
     actor_rollout_ref.model.use_remove_padding=False \
     actor_rollout_ref.model.enable_gradient_checkpointing=False \
     actor_rollout_ref.actor.optim.lr=1e-6 \
+    actor_rollout_ref.actor.data_loader_seed=${seed} \
     actor_rollout_ref.actor.ppo_mini_batch_size=${ppo_mini_batch_size} \
     actor_rollout_ref.actor.ppo_epochs=1 \
     actor_rollout_ref.actor.use_dynamic_bsz=True \
@@ -171,10 +187,12 @@ python -m verl.trainer.main_ppo \
     actor_rollout_ref.actor.entropy_coeff=0 \
     actor_rollout_ref.actor.fsdp_config.param_offload=False \
     actor_rollout_ref.actor.fsdp_config.optimizer_offload=False \
+    actor_rollout_ref.actor.fsdp_config.seed=${seed} \
     actor_rollout_ref.rollout.name=vllm \
     actor_rollout_ref.rollout.tensor_model_parallel_size=1 \
     actor_rollout_ref.rollout.gpu_memory_utilization=0.50 \
     actor_rollout_ref.rollout.temperature=1.0 \
+    actor_rollout_ref.rollout.seed=${seed} \
     actor_rollout_ref.rollout.n=${rollout_n} \
     actor_rollout_ref.rollout.free_cache_engine=True \
     actor_rollout_ref.rollout.log_prob_use_dynamic_bsz=True \
@@ -182,8 +200,9 @@ python -m verl.trainer.main_ppo \
     actor_rollout_ref.ref.log_prob_use_dynamic_bsz=True \
     actor_rollout_ref.ref.log_prob_max_token_len_per_gpu=${max_tokens_per_gpu} \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
-    "custom_reward_function.path=${reward_path}" \
-    custom_reward_function.name=${reward_function} \
+    actor_rollout_ref.ref.fsdp_config.seed=${seed} \
+    "reward.custom_reward_function.path=${reward_path}" \
+    reward.custom_reward_function.name=${reward_function} \
     trainer.critic_warmup=0 \
     "trainer.logger=${logger}" \
     trainer.project_name=math-verl-grpo \

@@ -40,9 +40,8 @@ reward_fn(data_source, solution_str, ground_truth, extra_info=None)
 
 They return a dictionary whose `score` value is used for training. The numeric
 `correctness`, `format`, and `parse_success` values are retained as separate
-verl metrics for console and W&B reporting.
+verl metrics for console and SwanLab reporting.
 
 The formal run configuration must select the intended function explicitly.
 Changing the parser, weights, or selected entry point creates a new reward
 condition and requires a new protocol version.
-

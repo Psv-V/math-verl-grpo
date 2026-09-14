@@ -30,7 +30,7 @@ formal-candidate profiles; all hardware-sensitive values remain subject to the
 live pilot.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
-minimal Git/W&B binding rules are in
+minimal Git/SwanLab binding rules are in
 [reports/experiment_tracking.md](reports/experiment_tracking.md). The GSM8K
 split and conversion contract is in [reports/data_card.md](reports/data_card.md).
 The model response format and parsing rules are in

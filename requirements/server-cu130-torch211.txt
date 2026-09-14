@@ -27,11 +27,16 @@ pylatexenc==2.10
 torchdata
 packaging>=20.0
 tensorboard
-wandb
+swanlab
 fastapi
 uvicorn
 cachetools
 nvtx
+mathruler==0.1.0
+qwen-vl-utils==0.0.14
+torchcodec==0.11.1
+TransferQueue @ git+https://github.com/Ascend/TransferQueue.git@434f8c476b4be24bc087e6e95070e64efcc739f9
+mbridge @ git+https://github.com/ISEEKYAN/mbridge.git@641a5a01de71080b2200d10e369090e40c9a351c
 
 # Training-side helpers in the fixed verl FSDP dependency set.
 liger-kernel>=0.8.2

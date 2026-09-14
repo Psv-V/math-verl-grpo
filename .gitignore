@@ -22,7 +22,6 @@ venv/
 /checkpoints/
 /outputs/
 /artifacts/
-/wandb/
 /swanlog/
 /ray_results/
 

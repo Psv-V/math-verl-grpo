@@ -2,9 +2,12 @@
 
 ## Status
 
-The preparation code is written but has not been run. No GSM8K data is stored
-in this local repository. Downloading and conversion will happen on the rental
-server after its data-disk mount point is confirmed.
+The preparation code passed a temporary local end-to-end run at dataset
+revision `740312add88f781978c0658806c59bc2815b9866`. It produced the expected
+6,961/512/1,319 split counts; the temporary dataset and cache were then
+deleted. No GSM8K data is stored in this local repository. Downloading and
+conversion will be repeated on the rental server after its data-disk mount
+point is confirmed.
 
 ## Source and split
 
@@ -27,7 +30,7 @@ After replacing all three placeholders with real server values:
 
 ```bash
 PYTHONPATH=src python -m math_grpo.data.gsm8k \
-  --revision <exact-hugging-face-commit> \
+  --revision 740312add88f781978c0658806c59bc2815b9866 \
   --cache-dir <data-disk>/huggingface \
   --output-dir <data-disk>/math-verl-grpo/data/processed/gsm8k
 ```
@@ -55,4 +58,3 @@ Near-duplicate semantic detection is intentionally not included in this first,
 small implementation. Exact normalized overlap is the blocking leakage check;
 near-duplicate analysis can be reported separately without modifying the
 official benchmark.
-

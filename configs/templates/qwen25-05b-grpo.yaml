@@ -17,7 +17,7 @@ data:
   train_file: TBD-SERVER
   dev_file: TBD-SERVER
   test_file: null  # never pass the official test split to the trainer
-  dataset_revision: TBD-DATA
+  dataset_revision: 740312add88f781978c0658806c59bc2815b9866
 
 prompt:
   template_version: TBD-AUDIT
@@ -45,7 +45,7 @@ checkpointing:
   resume_from: null
 
 tracking:
-  logger: [console, wandb]
-  wandb_project: math-verl-grpo
-  wandb_run_name: TBD
-  wandb_run_id: null
+  logger: [console, swanlab]
+  swanlab_project: math-verl-grpo
+  swanlab_experiment_name: TBD
+  swanlab_run_id: null
