@@ -23,6 +23,8 @@ local tests. Stage 5 implements the two preregistered rule-reward conditions.
 A separate reimplementation of GRPO is intentionally omitted; reward and
 advantage sanity checks will use the actual pinned verl code during the server
 smoke test.
+The independent vLLM evaluation runner is implemented for the frozen base and
+exported trained models; model download and GPU evaluation remain pending.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
 minimal Git/W&B binding rules are in
@@ -32,6 +34,8 @@ The model response format and parsing rules are in
 [reports/answer_contract.md](reports/answer_contract.md).
 The reward formulas and verl entry points are in
 [reports/reward_contract.md](reports/reward_contract.md).
+The shared base/checkpoint evaluation procedure is in
+[reports/evaluation_protocol.md](reports/evaluation_protocol.md).
 
 ## Intended experiment
 
