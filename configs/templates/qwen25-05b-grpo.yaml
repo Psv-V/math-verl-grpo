@@ -21,8 +21,8 @@ data:
 
 prompt:
   template_version: TBD-AUDIT
-  max_prompt_length: TBD-PILOT
-  max_response_length: TBD-PILOT
+  max_prompt_length: 512  # RTX 5090 pilot candidate
+  max_response_length: 512  # RTX 5090 pilot candidate
 
 reward:
   correctness_weight: 1.0
@@ -30,13 +30,13 @@ reward:
 
 grpo:
   total_optimizer_steps: TBD-PILOT
-  rollout_group_size: TBD-PILOT
-  rollout_temperature: TBD-PILOT
-  train_batch_size: TBD-PILOT
-  mini_batch_size: TBD-PILOT
-  micro_batch_size_per_gpu: TBD-PILOT
-  learning_rate: TBD-PILOT
-  kl_coefficient: TBD-PILOT
+  rollout_group_size: 8  # formal candidate; pilot starts at 4
+  rollout_temperature: 1.0
+  train_batch_size: 32  # prompts per step
+  mini_batch_size: 64  # generated trajectories
+  max_tokens_per_gpu: 12288  # dynamic micro-batching
+  learning_rate: 1.0e-6
+  kl_coefficient: 0.001
 
 checkpointing:
   output_dir: TBD-SERVER
@@ -49,4 +49,3 @@ tracking:
   wandb_project: math-verl-grpo
   wandb_run_name: TBD
   wandb_run_id: null
-

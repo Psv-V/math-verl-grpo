@@ -25,6 +25,9 @@ advantage sanity checks will use the actual pinned verl code during the server
 smoke test.
 The independent vLLM evaluation runner is implemented for the frozen base and
 exported trained models; model download and GPU evaluation remain pending.
+A single-RTX-5090 verl launcher now defines conservative smoke, pilot, and
+formal-candidate profiles; all hardware-sensitive values remain subject to the
+live pilot.
 
 The detailed protocol is in [reports/protocol.md](reports/protocol.md), and the
 minimal Git/W&B binding rules are in
@@ -36,6 +39,8 @@ The reward formulas and verl entry points are in
 [reports/reward_contract.md](reports/reward_contract.md).
 The shared base/checkpoint evaluation procedure is in
 [reports/evaluation_protocol.md](reports/evaluation_protocol.md).
+The candidate training parameters and server usage are in
+[reports/training_config.md](reports/training_config.md).
 
 ## Intended experiment
 
